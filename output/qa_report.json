@@ -1,0 +1,31 @@
+{
+  "coverage_pct": {
+    "DA_Price": 1.0,
+    "Load": 0.9999,
+    "Solar": 0.9997,
+    "Wind_Offshore": 0.9999,
+    "Wind_Onshore": 0.9997,
+    "TTF_Gas_Price": 1.0,
+    "EUA_Price": 1.0
+  },
+  "duplicate_timestamps": 0,
+  "missing_pre_fill": {
+    "DA_Price": 0,
+    "Load": 1,
+    "Solar": 2,
+    "Wind_Offshore": 1,
+    "Wind_Onshore": 2,
+    "TTF_Gas_Price": 0,
+    "EUA_Price": 0
+  },
+  "outliers": {
+    "above_cap": 0,
+    "below_cap": 0
+  },
+  "dst_check": {
+    "2025": {
+      "hours": 7993,
+      "status": "WARNING (expected ~8760)"
+    }
+  }
+}

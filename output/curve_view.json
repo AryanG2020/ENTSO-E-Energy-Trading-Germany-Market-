@@ -1,0 +1,13 @@
+{
+  "model_mean": 109.71634859954764,
+  "model_q10": 80.87143652104442,
+  "model_q90": 130.57575852360708,
+  "peak_mean": 137.28667835613277,
+  "offpeak_mean": 82.52369459305271,
+  "peak_base_spread": 54.76298376308006,
+  "market_fwd": 85.0,
+  "risk_premium": -24.716348599547644,
+  "rp_z": -0.636502519957718,
+  "signal": "NEUTRAL \u2014 fwd inside model 80% band or |RP_z| < 0.5",
+  "wow_wind_delta_gw": -0.46343926351067055
+}

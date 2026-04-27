@@ -1,0 +1,70 @@
+18:57:34 │ INFO     │ ═════════════════════════════════════════════════════════════════
+18:57:34 │ INFO     │ European Power Fair Value Engine  │  DE_LU
+18:57:34 │ INFO     │ ═════════════════════════════════════════════════════════════════
+18:57:34 │ INFO     │ Fetching ENTSO-E DE_LU  2025-01-01 → 2025-11-30
+18:58:01 │ INFO     │   TTF_Gas_Price: loaded from TTF=F
+18:58:02 │ ERROR    │ HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: EUASIF.IS"}}}
+18:58:02 │ ERROR    │ $EUASIF.IS: possibly delisted; no timezone found
+18:58:02 │ ERROR    │ 
+1 Failed download:
+18:58:02 │ ERROR    │ ['EUASIF.IS']: possibly delisted; no timezone found
+18:58:02 │ WARNING  │   EUASIF.IS failed (empty dataframe), trying next …
+18:58:02 │ INFO     │   EUA_Price: loaded from XD9U.DE
+18:58:02 │ INFO     │ [QA] Coverage OK (≥80% on all fields)
+18:58:02 │ INFO     │ [QA] No duplicate timestamps
+18:58:02 │ WARNING  │ [QA] NaNs before fill: {'Load': 1, 'Solar': 2, 'Wind_Offshore': 1, 'Wind_Onshore': 2}
+18:58:02 │ INFO     │ [QA] Missing post-fill: 0
+18:58:02 │ INFO     │ [QA] No price outliers outside EUPHEMIA caps
+18:58:02 │ INFO     │ [QA] 2025: 7993 hours (WARNING (expected ~8760))
+18:58:02 │ INFO     │ [QA] Done. Shape: (7993, 7)
+18:58:13 │ INFO     │ 
+────────────────────────────────────────────────────────────
+[AI/QA_RULES]
+[
+    {"name": "Price Data Type Mismatch", "description": "Prices should be of type float, but some are not.", "severity": "ERROR"},
+    {"name": "Inconsistent Units", "description": "Some columns have inconsistent units. For example, Load and Solar are in MWh, while others are in other units.", "severity": "WARNING"},
+    {"name": "Missing Values", "description": "There are missing values in the dataset that should be handled properly.", "severity": "ERROR"},
+    {"name": "Out-of-Range Values", "description": "Some columns have out-of-range values. For example, EUA_Price is negative.", "severity": "WARNING"},
+    {"name": "Incorrect Data Type for New Column", "description": "New column should be of type string, but it is not.", "severity": "ERROR"}
+────────────────────────────────────────────────────────────
+18:58:13 │ ERROR    │ Failed to parse AI QA rules JSON: Expecting ',' delimiter: line 6 column 142 (char 759)
+18:58:13 │ INFO     │ Features: 7993 → 7802 rows (lag warm-up removed)
+18:58:13 │ INFO     │ Walk-forward CV (5 folds) …
+18:58:15 │ INFO     │   Fold 1: Naive MAE €30.52 │ GBM MAE €17.11
+18:58:16 │ INFO     │   Fold 2: Naive MAE €27.10 │ GBM MAE €13.34
+18:58:17 │ INFO     │   Fold 3: Naive MAE €23.80 │ GBM MAE €14.25
+18:58:19 │ INFO     │   Fold 4: Naive MAE €33.61 │ GBM MAE €11.44
+18:58:22 │ INFO     │   Fold 5: Naive MAE €37.12 │ GBM MAE €16.49
+18:58:22 │ INFO     │   CV SeasonalNaive       : MAE €30.43 | RMSE €45.92 | P95 €91.68
+18:58:22 │ INFO     │   CV GBM                 : MAE €14.52 | RMSE €22.88 | P95 €47.32
+18:58:22 │ INFO     │ Training final GBM on full training set …
+18:58:23 │ INFO     │ Fetching ENTSO-E DE_LU  2025-11-24 → 2025-12-14
+18:58:29 │ INFO     │   TTF_Gas_Price: loaded from TTF=F
+18:58:29 │ ERROR    │ HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: EUASIF.IS"}}}
+18:58:29 │ ERROR    │ $EUASIF.IS: possibly delisted; no timezone found
+18:58:29 │ ERROR    │ 
+1 Failed download:
+18:58:29 │ ERROR    │ ['EUASIF.IS']: possibly delisted; no timezone found
+18:58:29 │ WARNING  │   EUASIF.IS failed (empty dataframe), trying next …
+18:58:29 │ INFO     │   EUA_Price: loaded from XD9U.DE
+18:58:29 │ INFO     │ [QA] Coverage OK (≥80% on all fields)
+18:58:29 │ INFO     │ [QA] No duplicate timestamps
+18:58:29 │ WARNING  │ [QA] NaNs before fill: {'Load': 1, 'Solar': 1, 'Wind_Offshore': 1, 'Wind_Onshore': 1}
+18:58:29 │ INFO     │ [QA] Missing post-fill: 0
+18:58:29 │ INFO     │ [QA] No price outliers outside EUPHEMIA caps
+18:58:29 │ INFO     │ [QA] 2025: 481 hours (WARNING (expected ~8760))
+18:58:29 │ INFO     │ [QA] Done. Shape: (481, 7)
+18:58:29 │ INFO     │ Features: 481 → 290 rows (lag warm-up removed)
+18:58:30 │ INFO     │ OOS  MAE €15.80 │ RMSE €24.12 │ P95 €55.10
+18:58:30 │ INFO     │ Curve view → NEUTRAL — fwd inside model 80% band or |RP_z| < 0.5
+18:58:35 │ INFO     │ 
+────────────────────────────────────────────────────────────
+[AI/DESK_COMMENTARY]
+The model fair-value range (q10–q90) is between 80.87 and 130.58, which falls below the traded prompt price of 85.0. The current signal is NEUTRAL as the forward inside the model 80% band or |RP_z| < 0.5 is not met, despite the RP z-score being -0.64, indicating a slight risk premium position. A WoW wind delta of -0.46 suggests a slightly bullish wind direction, which may imply a price increase in the near future. The single most important invalidation condition for this trade setup would be if the GBM CV MAE exceeds 14.52, as this would indicate a significant loss of model accuracy and potentially lead to a market reversal.
+────────────────────────────────────────────────────────────
+18:58:36 │ INFO     │ Figures saved.
+18:58:36 │ INFO     │ submission.csv saved (290 rows).
+18:58:36 │ INFO     │ ═════════════════════════════════════════════════════════════════
+18:58:36 │ INFO     │ Signal  : NEUTRAL — fwd inside model 80% band or |RP_z| < 0.5
+18:58:36 │ INFO     │ OOS MAE : €15.80/MWh
+18:58:36 │ INFO     │ ═════════════════════════════════════════════════════════════════
